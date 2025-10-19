@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.se.domain.UserRole;
 import com.se.entity.User;
 import com.se.repository.UserRepository;
 
@@ -28,7 +29,7 @@ public class CustomUserServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("Provided email (" + username + ") doesn't exist");
 		}
 
-		GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().toString());
+		GrantedAuthority authority = new SimpleGrantedAuthority(UserRole.ROLE_USER.name());
 
 		Collection<GrantedAuthority> authorities = Collections.singletonList(authority);
 

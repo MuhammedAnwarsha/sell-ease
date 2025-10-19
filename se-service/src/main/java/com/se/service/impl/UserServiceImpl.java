@@ -1,15 +1,18 @@
 package com.se.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.se.configuration.JwtProvider;
 import com.se.entity.User;
 import com.se.exception.ResourceNotFoundException;
 import com.se.exception.UserException;
+import com.se.payload.request.UserUpdateRequest;
 import com.se.repository.UserRepository;
 import com.se.service.UserService;
 
@@ -21,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private JwtProvider jwtProvider;
+	
+	@Autowired
+    private PasswordEncoder passwordEncoder;
 
 	@Override
 	public User getUserFromJwtToken(String token) {
@@ -66,6 +72,28 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
+	}
+
+	@Override
+	public User updateCurrentUser(UserUpdateRequest request) {
+		
+		User user = getCurrentUser();
+		
+		if(request.getFullname() != null) {
+			user.setFullname(request.getFullname());
+		}
+		
+		if (request.getPhone() != null) {
+	        user.setPhone(request.getPhone());
+	    }
+
+	    if (request.getPassword() != null && !request.getPassword().isBlank()) {
+	        user.setPassword(passwordEncoder.encode(request.getPassword()));
+	    }
+	    
+	    user.setUpdatedAt(LocalDateTime.now());
+	    
+		return userRepository.save(user);
 	}
 
 }
