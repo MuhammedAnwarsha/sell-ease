@@ -2,8 +2,6 @@ package com.se.entity;
 
 import java.time.LocalDateTime;
 
-import com.se.domain.UserRole;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
