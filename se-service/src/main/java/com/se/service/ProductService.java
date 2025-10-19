@@ -17,5 +17,7 @@ public interface ProductService {
     Product getProductById(Long id);
 
     Page<Product> getProductsForCurrentUser(String search, Pageable pageable);
+    
+    String generateWhatsappLink(Long productId);
 
 }

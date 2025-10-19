@@ -96,6 +96,25 @@ public class ProductServiceImpl implements ProductService{
 		}
 		return productRepository.findBySellerAndProductNameContainingIgnoreCase(seller, search, pageable);
 	}
+
+	@Override
+	public String generateWhatsappLink(Long productId) {
+	    
+		Product product = getProductById(productId);
+		
+		String phone = product.getSeller().getPhone();
+		
+		String text = String.format(
+	            "Check out this product: %s%nDescription: %s%nPrice: %.2f%nImage: %s",
+	            product.getProductName(),
+	            product.getProductDescription(),
+	            product.getPrice(),
+	            product.getProductImage() != null ? product.getProductImage() : ""
+	    );
+		
+		String encodedText = java.net.URLEncoder.encode(text, java.nio.charset.StandardCharsets.UTF_8);
+		return "https://wa.me/" + phone + "?text=" + encodedText;
+	}
 	
 
 }
