@@ -1,0 +1,56 @@
+# -------------------------------
+# Java / Spring Boot
+# -------------------------------
+
+# Compiled class files
+*.class
+
+# Build directories
+/target/
+/build/
+
+# Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle
+.gradle/
+/build/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# -------------------------------
+# IDE Files
+# -------------------------------
+
+# IntelliJ IDEA
+/.idea/
+/*.iml
+/out/
+
+# Eclipse
+/.classpath
+/.project
+/.settings/
+
+# VS Code
+.vscode/
+
+# -------------------------------
+# OS Files
+# -------------------------------
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db

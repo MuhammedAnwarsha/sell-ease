@@ -29,8 +29,8 @@ public class User {
 
 	private String phone;
 
-	@Column(nullable = false)
-	private UserRole role;
+//	@Column(nullable = false)
+//	private UserRole role;
 
 	@Column(nullable = false)
 	private String password;
@@ -73,13 +73,13 @@ public class User {
 		this.phone = phone;
 	}
 
-	public UserRole getRole() {
-		return role;
-	}
-
-	public void setRole(UserRole role) {
-		this.role = role;
-	}
+//	public UserRole getRole() {
+//		return role;
+//	}
+//
+//	public void setRole(UserRole role) {
+//		this.role = role;
+//	}
 
 	public String getPassword() {
 		return password;
