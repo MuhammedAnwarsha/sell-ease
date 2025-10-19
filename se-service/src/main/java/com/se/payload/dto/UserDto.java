@@ -2,8 +2,6 @@ package com.se.payload.dto;
 
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.se.domain.UserRole;
 
 public class UserDto {
 
@@ -15,7 +13,6 @@ public class UserDto {
 
 	private String email;
 
-	@JsonIgnore
 	private String password;
 
 	private LocalDateTime createdAt;
