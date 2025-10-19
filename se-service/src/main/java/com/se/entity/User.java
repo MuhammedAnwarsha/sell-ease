@@ -17,20 +17,17 @@ import lombok.EqualsAndHashCode;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(nullable = false)
-	private String fullname;
+	private String fullName;
 
 	@Column(nullable = false, unique = true)
 	@Email(message = "Email should be valid")
 	private String email;
 
 	private String phone;
-
-//	@Column(nullable = false)
-//	private UserRole role;
 
 	@Column(nullable = false)
 	private String password;
@@ -50,11 +47,11 @@ public class User {
 	}
 
 	public String getFullname() {
-		return fullname;
+		return fullName;
 	}
 
 	public void setFullname(String fullname) {
-		this.fullname = fullname;
+		this.fullName = fullname;
 	}
 
 	public String getEmail() {
@@ -72,14 +69,6 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
-//	public UserRole getRole() {
-//		return role;
-//	}
-//
-//	public void setRole(UserRole role) {
-//		this.role = role;
-//	}
 
 	public String getPassword() {
 		return password;
