@@ -81,5 +81,12 @@ public class ProductController {
         Product product = productService.getProductById(id);
         return ResponseEntity.ok(new ApiResponse<>(true, "Product fetched successfully", ProductMapper.toDto(product)));
     }
+	
+	@GetMapping("/{productId}/whatsapp-link")
+	public ResponseEntity<ApiResponse<String>> getWhatsappLink(@PathVariable("productId") Long productId) {
+	    String link = productService.generateWhatsappLink(productId);
+	    return ResponseEntity.ok(new ApiResponse<>(true, "WhatsApp link generated successfully", link));
+	}
+
 
 }
