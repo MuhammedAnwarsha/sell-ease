@@ -1,6 +1,11 @@
 package com.se.service.impl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +19,7 @@ import com.se.entity.User;
 import com.se.exception.ResourceNotFoundException;
 import com.se.exception.UserException;
 import com.se.mapper.OrderMapper;
+import com.se.payload.dto.SellerDashboardDto;
 import com.se.payload.request.OrderRequestDto;
 import com.se.payload.response.OrderResponseDto;
 import com.se.repository.OrderRepository;
@@ -93,5 +99,53 @@ public class OrderServiceImpl implements OrderService{
         orderRepository.save(order);
         return OrderMapper.toDto(order);
     }
+
+	@Override
+	public SellerDashboardDto getSellerDashboard(String fromDateStr, String toDateStr) {
+		
+		User seller = userService.getCurrentUser();
+		LocalDateTime fromDate = null;
+	    LocalDateTime toDate = null;
+
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+	    if (fromDateStr != null) {
+	        fromDate = LocalDate.parse(fromDateStr, formatter).atStartOfDay();
+	    }
+
+	    if (toDateStr != null) {
+	        toDate = LocalDate.parse(toDateStr, formatter).atTime(23, 59, 59);
+	    }
+
+	    // Fetch orders for this seller
+	    List<Order> orders;
+	    if (fromDate != null && toDate != null) {
+	        orders = orderRepository.findByProductSellerIdAndCreatedAtBetween(seller.getId(), fromDate, toDate);
+	    } else {
+	        orders = orderRepository.findByProductSellerId(seller.getId());
+	    }
+
+	    SellerDashboardDto dto = new SellerDashboardDto();
+	    dto.setTotalProducts(productRepository.countBySellerId(seller.getId()));
+	    dto.setTotalOrders(orders.size());
+
+	    // Orders by status
+	    Map<String, Long> statusCount = orders.stream()
+	            .collect(Collectors.groupingBy(o -> o.getStatus().name(), Collectors.counting()));
+	    dto.setOrdersByStatus(statusCount);
+
+	    // Total earnings
+	    double earnings = orders.stream()
+	            .mapToDouble(o -> o.getProduct().getPrice() * o.getQuantity())
+	            .sum();
+	    dto.setTotalEarnings(earnings);
+
+	    // Top products
+	    Map<String, Long> topProducts = orders.stream()
+	            .collect(Collectors.groupingBy(o -> o.getProduct().getProductName(), Collectors.counting()));
+	    dto.setTopProducts(topProducts);
+
+	    return dto;
+	}
 
 }
