@@ -38,6 +38,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private NotificationService notificationService;
 
 	@Override
 	public Order createOrder(OrderRequestDto request) {
@@ -64,7 +67,10 @@ public class OrderServiceImpl implements OrderService{
 	     product.setQuantity(product.getQuantity() - request.getQuantity());
 	     productRepository.save(product);
 	   
-	     return orderRepository.save(order);
+	     Order newOrder = orderRepository.save(order);
+	     notificationService.sendNewOrderNotification(newOrder);
+	     
+	     return order;
 	}
 
 	@Override
