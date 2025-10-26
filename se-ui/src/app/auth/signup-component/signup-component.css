@@ -1,70 +1,176 @@
-/* signup.css */
+/* SIGNUP CARD STYLES (signup.component.css) - Final Glassmorphism & Responsive TALL Card Fix */
 
-.signup-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 30px;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-}
-
-.signup-container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.signup-container form {
-  display: flex;
-  flex-direction: column;
-}
-
-.signup-container form div {
-  margin-bottom: 15px;
-}
-
-.signup-container label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
-}
-
-.signup-container input {
+.login-card-container {
+  /* --- DESKTOP POSITIONING --- */
+  position: absolute; 
+  right: 5%; 
+  top: 10%; 
+  transform: none;
+  margin-bottom: 50px; 
+  
+  /* --- SIZE --- */
   width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  box-sizing: border-box;
+  max-width: 350px; 
+  padding: 30px 35px; 
+  border-radius: 12px;
+  
+  /* --- GLASS MORPHISM EFFECT --- */
+  background-color: rgba(255, 255, 255, 0.05); 
+  backdrop-filter: blur(15px); 
+  -webkit-backdrop-filter: blur(15px); 
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+  box-shadow: 0 15px 50px 0 rgba(0, 0, 0, 0.4), 
+              0 0 15px rgba(139, 233, 255, 0.2); 
+  
+  color: #FFFFFF;
+  font-family: Arial, sans-serif;
+  animation: fadeIn 0.5s ease-out;
 }
 
-.signup-container button {
-  padding: 12px;
-  background-color: #1976d2;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+.login-card-header h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #FFFFFF; 
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-shadow: 0 0 7px rgba(0, 0, 0, 0.8);
 }
 
-.signup-container button:hover {
-  background-color: #1565c0;
-}
-
-.signup-error {
-  color: red;
-  font-size: 13px;
-  margin-top: -10px;
+.input-group {
   margin-bottom: 10px;
 }
 
-.signup-success {
-  color: green;
+.input-group label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+  color: #F0F0F0; 
+  font-size: 1rem;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 8px;
+  
+  /* --- INPUT GLASS EFFECT (Default State) --- */
+  background-color: rgba(255, 255, 255, 0.15); 
+  box-shadow: none; 
+  border: 1px solid rgba(255, 255, 255, 0.4); 
+  
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  color: #FFFFFF; 
+}
+
+.input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.7); 
+}
+
+.input-group input:focus {
+  /* --- INPUT GLASS EFFECT (Focus State) --- */
+  background-color: rgba(255, 255, 255, 0.5); 
+  border-color: #8be9ff; 
+  box-shadow: 0 0 0 3px rgba(139, 233, 255, 0.5);
+  outline: none;
+  color: #333; 
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50; 
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-top: 5px;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+  transform: translateY(-1px);
+}
+
+.error-message {
+  color: #f60909;; 
+  font-size: 0.9rem;
   text-align: center;
-  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.success-message {
+  color: #a7ffeb; 
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 0.95rem;
+  color: #F0F0F0; 
+}
+
+.login-footer a {
+  color: #2f93a9; ; 
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.login-footer a:hover {
+  color: #1976d2;
+  text-decoration: underline;
+}
+
+.validation-error small {
+  color: #ff4d4d;
+  font-size: 13px;
+  display: block;
+  margin-top: 2px;
+}
+
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.success-message {
+  color: #28a745;
+  font-weight: 500;
+  margin-top: 10px;
+  text-align: center;
+}
+
+
+
+/* Keyframe for subtle entrance */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.98) translateY(-50%); }
+    to { opacity: 1; transform: scale(1) translateY(-50%); }
+}
+
+/* ------------------------------------------------ */
+/* Mobile Adjustment: FIX for TALLER CARD ON SMALLER SCREENS */
+/* ------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .login-card-container {
+    /* **CRUCIAL FIX:** Switches from fixed position to flow naturally in the document */
+    position: relative; 
+    right: auto; 
+    top: auto; 
+    transform: none; /* Removes vertical centering */
+    
+    /* Centers it horizontally and adds space at top/bottom */
+    margin: 50px auto 30px auto; 
+    max-width: 90%; 
+  }
 }

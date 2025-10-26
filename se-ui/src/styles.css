@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+/* GLOBAL STYLES (src/styles.css) - FINAL VERSION */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  /* Crucial: Allows the document to scroll vertically */
+  height: auto; 
+  min-height: 100%; 
+  /* Prevents horizontal scrolling */
+  overflow-x: hidden; 
+}
+
+.page-background-wrapper {
+  /* Use MINIMUM height to cover screen, but allow content to push it further */
+  min-height: 100vh;
+  width: 100vw;
+  
+  /* Image properties */
+  background-image: url('assets/LoginSignup_Mobile.png'); /* Wide Image Default */
+  background-position: center center; 
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  overflow: hidden; 
+  
+  /* The main container needs positioning context for the absolutely positioned card */
+  position: relative; 
+}
+
+/* MEDIA QUERY: Swap Image for Mobile/Vertical Screens */
+@media (max-width: 600px) {
+  .page-background-wrapper {
+    /* Replace with your actual mobile-ratio image path */
+    background-image: url('assets/LoginSignup_mobile.png'); 
+  }
+}

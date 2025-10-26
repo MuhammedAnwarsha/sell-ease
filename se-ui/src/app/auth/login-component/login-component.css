@@ -1,85 +1,155 @@
-/* login.css */
-.login-container {
-  max-width: 400px;
-  margin: 60px auto;
-  padding: 30px 25px;
-  background-color: #f7f7f7;
-  border-radius: 10px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-}
 
-.login-container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.login-container form {
-  display: flex;
-  flex-direction: column;
-}
-
-.login-container form div {
-  margin-bottom: 15px;
-}
-
-.login-container label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  display: block;
-  color: #555;
-}
-
-.login-container input {
+.login-card-container {
+  position: absolute; /* Positioned relative to .page-background-wrapper */
+  right: 5%; /* Anchor to the right, leaving a small margin */
+  top: 50%; /* Start at the vertical center */
+  transform: translateY(-50%); /* Shift up by half its height to perfectly center it vertically */
+  
+  /* The main container for the form (the 'card') */
   width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  box-sizing: border-box;
+  max-width: 380px; 
+  padding: 35px 40px; 
+  border-radius: 12px;
+  
+  /* --- MAXIMUM GLASS MORPHISM EFFECT --- */
+  background-color: rgba(255, 255, 255, 0.05); 
+  backdrop-filter: blur(15px); 
+  -webkit-backdrop-filter: blur(15px); 
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+  box-shadow: 0 15px 50px 0 rgba(0, 0, 0, 0.4), 
+              0 0 15px rgba(139, 233, 255, 0.2); 
+  
+  color: #FFFFFF;
+  font-family: Arial, sans-serif;
+  
+  animation: fadeIn 0.5s ease-out;
 }
 
-.login-container button {
-  padding: 12px;
-  background-color: #1976d2;
+.login-card-header h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #FFFFFF; 
+  font-weight: 600;
+  font-size: 1.8rem;
+  text-shadow: 0 0 7px rgba(0, 0, 0, 0.8);
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+  color: #F0F0F0; 
+  font-size: 1rem;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  
+  /* --- INPUT GLASS EFFECT (Default State) --- */
+  background-color: rgba(255, 255, 255, 0.15); 
+  box-shadow: none; 
+  border: 1px solid rgba(255, 255, 255, 0.4); 
+  
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  color: #FFFFFF; 
+}
+
+.input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.7); 
+}
+
+.input-group input:focus {
+  /* --- INPUT GLASS EFFECT (Focus State) --- */
+  background-color: rgba(255, 255, 255, 0.5); 
+  border-color: #8be9ff; 
+  box-shadow: 0 0 0 3px rgba(139, 233, 255, 0.5);
+  outline: none;
+  color: #333; 
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  background-color: #4CAF50; 
   color: white;
-  font-size: 16px;
-  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
   border: none;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-top: 10px;
 }
 
-.login-container button:hover {
-  background-color: #1565c0;
+button[type="submit"]:hover {
+  background-color: #45a049;
+  transform: translateY(-1px);
 }
 
-.login-error {
-  color: red;
-  font-size: 13px;
-  margin-bottom: 10px;
-}
-
-.login-success {
-  color: green;
-  font-size: 13px;
-  margin-bottom: 10px;
+.error-message {
+  color: #f60909; 
+  font-size: 0.9rem;
   text-align: center;
+  margin-top: 15px;
 }
 
 .login-footer {
   text-align: center;
-  margin-top: 15px;
-  font-size: 14px;
+  margin-top: 25px;
+  font-size: 0.95rem;
+  color: #F0F0F0; 
 }
 
+.validation-error small {
+  color: #ff4d4d;
+  font-size: 13px;
+  display: block;
+  margin-top: 2px;
+}
+
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
 .login-footer a {
-  color: #1976d2;
+  color: #2f93a9; 
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
+  transition: color 0.2s ease;
 }
 
 .login-footer a:hover {
+  color: #1976d2;
   text-decoration: underline;
+}
+
+
+/* Keyframe for subtle entrance */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.98) translateY(-50%); }
+    to { opacity: 1; transform: scale(1) translateY(-50%); }
+}
+
+/* ------------------------------------------------ */
+/* Mobile Adjustment: Center the card on smaller screens */
+/* ------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .login-card-container {
+    /* Reset positioning to center it horizontally on mobile */
+    right: 50%;
+    transform: translate(50%, -50%); /* Adjust transform to include X-axis centering */
+    max-width: 90%; /* Allow it to take up more screen width on mobile */
+  }
 }
