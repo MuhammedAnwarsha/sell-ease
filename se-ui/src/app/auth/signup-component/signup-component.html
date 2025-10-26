@@ -1,30 +1,95 @@
-<div class="signup-container">
-  <h2>Sign Up</h2>
-
-  <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
-  <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
-
-  <form (ngSubmit)="signup()">
-    <div>
-      <label>Full Name:</label>
-      <input type="text" [(ngModel)]="fullname" name="fullname" required />
+<div class="page-background-wrapper">
+  <div class="login-card-container">
+    <div class="login-card-header">
+      <h2>Create your SELL EASE account</h2>
     </div>
 
-    <div>
-      <label>Email:</label>
-      <input type="email" [(ngModel)]="email" name="email" required />
-    </div>
+    <form #signupForm="ngForm" (ngSubmit)="signup(signupForm)">
+      <!-- Full Name -->
+      <div class="input-group">
+        <label for="fullname">Full Name</label>
+        <input
+          id="fullname"
+          type="text"
+          name="fullname"
+          [(ngModel)]="fullname"
+          placeholder="Enter your full name"
+          required
+          minlength="3"
+          #fullnameCtrl="ngModel"
+        />
+        <div class="validation-error" *ngIf="fullnameCtrl.invalid && fullnameCtrl.touched">
+          <small *ngIf="fullnameCtrl.errors?.['required']">Full name is required</small>
+          <small *ngIf="fullnameCtrl.errors?.['minlength']">Name must be at least 3 characters</small>
+        </div>
+      </div>
 
-    <div>
-      <label>Phone:</label>
-      <input type="text" [(ngModel)]="phone" name="phone" required />
-    </div>
+      <!-- Email -->
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="Enter your email"
+          required
+          email
+          #emailCtrl="ngModel"
+        />
+        <div class="validation-error" *ngIf="emailCtrl.invalid && emailCtrl.touched">
+          <small *ngIf="emailCtrl.errors?.['required']">Email is required</small>
+          <small *ngIf="emailCtrl.errors?.['email']">Enter a valid email address</small>
+        </div>
+      </div>
 
-    <div>
-      <label>Password:</label>
-      <input type="password" [(ngModel)]="password" name="password" required />
-    </div>
+      <!-- Phone -->
+      <div class="input-group">
+        <label for="phone">Phone</label>
+        <input
+          id="phone"
+          type="text"
+          name="phone"
+          [(ngModel)]="phone"
+          placeholder="Enter your phone number"
+          required
+          pattern="^[0-9]{10}$"
+          #phoneCtrl="ngModel"
+        />
+        <div class="validation-error" *ngIf="phoneCtrl.invalid && phoneCtrl.touched">
+          <small *ngIf="phoneCtrl.errors?.['required']">Phone number is required</small>
+          <small *ngIf="phoneCtrl.errors?.['pattern']">Enter a valid 10-digit phone number</small>
+        </div>
+      </div>
 
-    <button type="submit">Sign Up</button>
-  </form>
+      <!-- Password -->
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Create a password"
+          required
+          minlength="6"
+          #passwordCtrl="ngModel"
+        />
+        <div class="validation-error" *ngIf="passwordCtrl.invalid && passwordCtrl.touched">
+          <small *ngIf="passwordCtrl.errors?.['required']">Password is required</small>
+          <small *ngIf="passwordCtrl.errors?.['minlength']">Password must be at least 6 characters</small>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+    </form>
+
+    <!-- Messages -->
+    <div *ngIf="errorMsg" class="error-message">{{ errorMsg }}</div>
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+
+    <div class="login-footer">
+      <span>Already have an account? <a routerLink="/login">Log in</a></span>
+    </div>
+  </div>
 </div>

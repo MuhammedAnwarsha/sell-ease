@@ -1,19 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-signup-component',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, RouterModule, HttpClientModule],
   templateUrl: './signup-component.html',
   styleUrl: './signup-component.css',
 })
 export class SignupComponent {
-
   fullname = '';
   email = '';
   phone = '';
@@ -21,11 +20,15 @@ export class SignupComponent {
   errorMsg = '';
   successMessage = '';
 
-  constructor(private api:ApiService, private router: Router) {}
+  constructor(private api: ApiService, private router: Router) {}
 
-  signup() {
+  signup(form: NgForm) {
+    if (form.invalid) {
+      this.errorMsg = 'Please fill all fields correctly.';
+      return;
+    }
     this.errorMsg = '';
-    this.api.signup(this.fullname,this.email,this.phone,this.password).subscribe({
+    this.api.signup(this.fullname, this.email, this.phone, this.password).subscribe({
       next: (res) => {
         localStorage.setItem('jwt', res.jwt); // store JWT
         localStorage.setItem('user', JSON.stringify(res.user));
