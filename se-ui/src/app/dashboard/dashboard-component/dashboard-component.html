@@ -1,42 +1,106 @@
-<div class="dashboard-header">
-    <h2>Welcome, {{ fullname }}</h2>
-    <button (click)="logout()" class="logout-btn">Logout</button>
-</div>
-<div class="dashboard-container">
-    <div class="profile-card">
-        <p><strong>Full Name:</strong> {{ fullname }}</p>
-        <p><strong>Email:</strong> {{ email }}</p>
-        <p><strong>Phone:</strong> {{ phone }}</p>
-        <p><strong>Last Login:</strong> {{lastLogin | date:'short' }}</p>
+<div class="app-layout">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <img src="/Favicon.png" alt="Sell-Ease icon" class="icon-logo-img" />
+            <span class="logo-text">SELL-EASE</span>
+        </div>
+        <ul class="sidebar-nav">
+            <li class="nav-item active"><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li class="nav-item"><a href="/products"><i class="fas fa-box-open"></i> Products</a></li>
+            <li class="nav-item"><a href="/orders"><i class="fas fa-truck"></i> Orders</a></li>
+            <li class="nav-item"><a href="/customers"><i class="fas fa-user-friends"></i> Customers</a></li>
+            <li class="nav-item"><a href="/whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+            <li class="nav-item"><a href="/reports"><i class="fas fa-file-alt"></i> Reports</a></li>
+            <li class="nav-item"><a href="/settings"><i class="fas fa-cog"></i> Settings</a></li>
+            <li class="nav-item logout-nav-item"><a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content-wrapper">
+        
+        <header class="top-navbar">
+            <h2 class="welcome-text">Welcome, {{ fullname || 'Aisha' }}</h2>
+            <div class="header-icons">
+                <i class="fas fa-bell"></i>
+            </div>
+        </header>
+
+        <main class="dashboard-body">
+            
+            <div class="kpi-cards">
+                <div class="card kpi-card">
+                    <div class="card-icon-header"><i class="fas fa-chart-bar"></i> Total Sales</div>
+                    <p class="kpi-value">₹ {{ totalRevenue}}</p>
+                </div>
+                <div class="card kpi-card">
+                    <div class="card-icon-header"><i class="fas fa-file-invoice-dollar"></i> Total Orders</div>
+                    <p class="kpi-value">{{ totalOrders || '58' }}</p>
+                </div>
+                <div class="card kpi-card">
+                    <div class="card-icon-header"><i class="fas fa-user-friends"></i> Customers</div>
+                    <p class="kpi-value">23</p> </div>
+                <div class="card kpi-card">
+                    <div class="card-icon-header"><i class="fas fa-box-open"></i> Products</div>
+                    <p class="kpi-value">{{ totalProducts || '84' }}</p>
+                </div>
+            </div>
+
+            <div class="analytics-grid">
+                
+                <div class="chart-card">
+                    <h3>Sales</h3>
+                    <div class="chart-placeholder">
+                        <img src="/sales-graph-placeholder.png" alt="Sales Graph Placeholder" style="width: 100%; max-width: 100%; height: auto;">
+                        <p class="chart-label">Last 7 days</p>
+                    </div>
+                </div>
+                
+                <div class="table-card recent-orders">
+                    <h3>Recent Orders</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>O-1014</td><td>Rajesh</td><td>09-Oct</td><td>₹1,499</td><td><span class="status-delivered">Delivered</span></td></tr>
+                                <tr><td>O-1013</td><td>Kiran</td><td>08-Oct</td><td>₹2,300</td><td><span class="status-shipped">Shipped</span></td></tr>
+                                <tr><td>O-1012</td><td>Meera</td><td>07-Oct</td><td>₹799</td><td><span class="status-pending">Pending</span></td></tr>
+                                <tr><td>O-1011</td><td>Ayesha</td><td>07-Oct</td><td>₹3,200</td><td><span class="status-delivered">Delivered</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="table-card recent-dodgers-table">
+                    <h3>Recent Doders</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>O-1014</td><td>Rajesh</td><td>09-Oct</td><td>₹1,489</td><td><span class="status-delivered">Delivered</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
     </div>
-    <h1>Seller Dashboard</h1>
-
-    <div class="cards">
-        <div class="card">
-            <h2>Total Orders</h2>
-            <p>{{ totalOrders }}</p>
-        </div>
-        <div class="card">
-            <h2>Total Products</h2>
-            <p>{{ totalProducts }}</p>
-        </div>
-        <div class="card">
-            <h2>Total Revenue</h2>
-            <p>₹ {{ totalRevenue }}</p>
-        </div>
-    </div>
-
-    <h2>Orders by Status</h2>
-    <ul>
-        <li *ngFor="let status of ordersByStatus | keyvalue">
-            {{ status.key }}: {{ status.value }}
-        </li>
-    </ul>
-
-    <h2>Top Products</h2>
-    <ul>
-        <li *ngFor="let product of topProducts | keyvalue">
-            {{ product.key }}: {{ product.value }} orders
-        </li>
-    </ul>
 </div>

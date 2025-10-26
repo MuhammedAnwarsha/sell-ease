@@ -27,6 +27,119 @@ html, body {
   position: relative; 
 }
 
+/* COLOR PALETTE (Adjusted for a full dark theme) */
+:root {
+    --whatsapp-green: #25D366; /* Main brand green - used for accents */
+    --main-dark-bg: #1c3639; /* Deep, muted dark green for the background */
+    --dark-surface: #264245; /* Slightly lighter dark shade for cards/sidebar */
+    --light-text: #f0f0f0; /* Light text color for high contrast */
+    --logo-green: #34AF64; /* A slightly brighter green for the logo/accents */
+    
+    --card-bg: white; /* KEEP cards white for maximum data readability/contrast */
+    --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
+    --text-on-light: #333; /* Text color on white cards */
+
+    /* Status Colors remain the same for good badge contrast */
+    --delivered-green: #d1f7e0;
+    --delivered-text: #075e54;
+    --shipped-orange: #ffe9d1;
+    --shipped-text: #f38618;
+    --pending-blue: #d1e7ff;
+    --pending-text: #007bff;
+}
+
+/* BASE LAYOUT */
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--main-dark-bg); /* 🔥 Overall Project Background */
+    color: var(--light-text); 
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+/* -------------------- */
+/* SIDEBAR STYLES - Now Dark */
+/* -------------------- */
+.sidebar {
+    width: 250px;
+    background-color: var(--dark-surface); /* 🔥 Darker Surface */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+    padding: 15px 0;
+    flex-shrink: 0;
+}
+
+.logo-text {
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    margin-left: 10px; 
+    color: var(--whatsapp-green); /* 🔥 Use bright green for the logo text */
+}
+
+.nav-item a {
+    color: var(--light-text); /* 🔥 Light text for readability */
+}
+
+.nav-item a i {
+    color: #999; /* Neutral icons */
+}
+
+/* Active/Hover styles */
+.nav-item.active a {
+    background-color: rgba(37, 211, 102, 0.2); /* Darker transparent green */
+    color: var(--whatsapp-green);
+    border-right: 4px solid var(--whatsapp-green);
+}
+
+.nav-item a:hover {
+    background-color: var(--main-dark-bg); /* Hover slightly darker than sidebar */
+}
+
+.nav-item.active a i {
+    color: var(--whatsapp-green);
+}
+
+
+/* -------------------- */
+/* TOP NAVBAR STYLES - Now Dark */
+/* -------------------- */
+.top-navbar {
+    background-color: var(--dark-surface); /* 🔥 Darker Surface */
+    padding: 15px 30px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.welcome-text {
+    color: var(--light-text); /* 🔥 Light text */
+}
+
+.header-icons .fa-bell {
+    color: var(--light-text); /* 🔥 Light icon */
+}
+
+
+/* -------------------- */
+/* DASHBOARD BODY STYLES */
+/* -------------------- */
+.dashboard-body {
+    padding: 30px;
+}
+
+/* Main title color needs high contrast */
+.dashboard-body h2, .dashboard-body h3 {
+    color: var(--light-text); 
+}
+
+/* CARDS: Keep these WHITE for the data to pop */
+.card, .chart-card, .table-card {
+    background: var(--card-bg); /* KEEPING WHITE */
+}
+
+/* All text/titles/KPIs inside the white cards should be dark */
+.kpi-card h2, .kpi-card p, .chart-card h3, .table-card h3,
+.card-icon-header, .table-wrapper th, .table-wrapper td {
+    color: var(--text-on-light); /* Ensure text inside cards is dark */
+}
+
 /* MEDIA QUERY: Swap Image for Mobile/Vertical Screens */
 @media (max-width: 600px) {
   .page-background-wrapper {

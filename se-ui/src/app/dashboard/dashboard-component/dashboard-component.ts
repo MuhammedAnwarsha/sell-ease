@@ -5,6 +5,7 @@ import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-dashboard-component',
+  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './dashboard-component.html',
   styleUrl: './dashboard-component.css',

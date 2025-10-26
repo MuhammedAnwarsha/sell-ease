@@ -1,105 +1,364 @@
-.dashboard-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+/* Load Google Font (Inter is a good modern choice) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* COLOR PALETTE (Based on WhatsApp's Green and a clean white theme) */
+:root {
+    --whatsapp-green: #1fd160; /* Main brand green */
+    --dark-green-accent: #479b91; /* Dark accent for text/titles */
+    --light-bg: #f4f7f6; /* Very light main background */
+    --text-color: #333;
+    --card-bg: white;
+    --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* Softer shadow */
+
+    /* Status Colors */
+    --delivered-green: #0a8e3f;
+    --delivered-text: #075e54;
+    --shipped-orange: #ffe9d1;
+    --shipped-text: #f38618;
+    --pending-blue: #d1e7ff;
+    --pending-text: #007bff;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 30px;
+/* BASE LAYOUT */
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    font-family: 'Inter', Arial, sans-serif;
 }
 
-.cards {
-  display: flex;
-  gap: 20px;
-  justify-content: space-around;
-  margin-bottom: 40px;
+/* -------------------- */
+/* SIDEBAR STYLES - White/Light Green */
+/* -------------------- */
+.sidebar {
+    width: 250px;
+    background-color: var(--card-bg); /* White background for the sidebar */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    padding: 15px 0;
+    flex-shrink: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    padding: 0 20px 20px 20px;
+    margin-bottom: 10px;
+}
+
+.icon-logo-img {
+    width: 60px;
+    height: 60px;
+    content: url('/Favicon.png');
+    background-color: var(--whatsapp-green);
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+}
+
+/* New style for the title text */
+.logo-text {
+    font-size: 1.5rem; /* Larger font size for the title */
+    font-weight: 700; /* Bold */
+    margin-left: 10px; /* Spacing from the logo image */
+    color: var(--whatsapp-green); /* Use the brand green for prominence */
+}
+
+.nav-item {
+    margin: 2px 0;
+}
+
+.nav-item a {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.nav-item a i {
+    margin-right: 15px;
+    width: 20px;
+    color: #999;
+}
+
+/* Active/Hover styles to match image's light green background */
+.nav-item.active a {
+    background-color: rgba(37, 211, 102, 0.1);
+    color: var(--dark-green-accent);
+    border-right: 4px solid var(--whatsapp-green);
+}
+
+.nav-item.active a i {
+    color: var(--whatsapp-green);
+}
+
+.nav-item a:hover {
+    background-color: #f0f0f0;
+}
+
+
+/* -------------------- */
+/* MAIN CONTENT STYLES */
+/* -------------------- */
+.main-content-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-navbar {
+    background-color: var(--card-bg);
+    padding: 15px 30px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.welcome-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.header-icons .fa-bell {
+    font-size: 1.2rem;
+    color: #777;
+    cursor: pointer;
+}
+
+.dashboard-body {
+    padding: 30px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+
+/* -------------------- */
+/* KPI CARDS STYLES */
+/* -------------------- */
+.kpi-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
 }
 
 .card {
-  background: #f7f7f7;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  flex: 1;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+    transform: translateY(-2px);
 }
 
-.card h2 {
-  margin-bottom: 10px;
-  color: #333;
+.kpi-card {
+    text-align: left;
 }
 
-.card p {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #007bff;
+.card-icon-header {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.card-icon-header i {
+    font-size: 1.2rem;
+    color: var(--whatsapp-green);
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.kpi-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--dark-green-accent);
+    margin: 0;
+}
+
+
+/* -------------------- */
+/* ANALYTICS GRID (Charts and Tables) */
+/* -------------------- */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* 2/3rds for Sales Chart, 1/3rd for Recent Orders */
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.chart-card {
+    grid-column: span 1; /* Default: 2/3rds width */
+}
+
+/* Full width for the second table to match the image structure */
+.recent-dodgers-table {
+    grid-column: span 2;
+}
+
+.chart-card, .table-card {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+}
+
+.chart-card h3, .table-card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--dark-green-accent);
+}
+
+.chart-placeholder {
+    min-height: 250px;
+    background-color: #f7f7f7; /* Lighter placeholder for the chart area */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.chart-label {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 10px;
+}
+
+/* TABLE STYLES */
+.table-wrapper {
+    overflow-x: auto;
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
 }
 
 table th, table td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
 }
 
 table th {
-  background-color: #007bff;
-  color: white;
+    background-color: #f9f9f9;
+    font-weight: 600;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-table tr:hover {
-  background-color: #f1f1f1;
+/* Status Badges */
+.status-delivered, .status-shipped, .status-pending {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    display: inline-block;
 }
 
-.logout-btn {
-  background-color: #ff4d4f;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  cursor: pointer;
-  border-radius: 4px;
-  float: right;
-  font-weight: bold;
+.status-delivered {
+    background-color: var(--delivered-green);
+    color: var(--delivered-text);
 }
 
-.logout-btn:hover {
-  background-color: #ff7875;
+.status-shipped {
+    background-color: var(--shipped-orange);
+    color: var(--shipped-text);
 }
 
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-/* .dashboard-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 1rem;
-} */
-
-.profile-card {
-  background: #f5f5f5;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.profile-card p {
-  margin: 0.5rem 0;
+.status-pending {
+    background-color: var(--pending-blue);
+    color: var(--pending-text);
 }
 
 
+/* -------------------- */
+/* RESPONSIVENESS */
+/* -------------------- */
+@media (max-width: 992px) {
+    .analytics-grid {
+        grid-template-columns: 1fr; /* Stack all major sections vertically */
+        gap: 20px;
+    }
+
+    .chart-card {
+        grid-column: span 1;
+    }
+    .recent-dodgers-table {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 0;
+    }
+
+    .sidebar-header {
+        display: none; 
+    }
+
+    .sidebar-nav {
+        display: flex;
+        justify-content: space-around;
+        padding: 0;
+        overflow-x: auto;
+        border-bottom: 1px solid #eee;
+    }
+
+    .nav-item {
+        flex-shrink: 0;
+    }
+    
+    .nav-item a {
+        padding: 10px;
+        font-size: 0.75rem;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .nav-item a i {
+        margin: 0 0 5px 0;
+    }
+
+    .dashboard-body {
+        padding: 20px;
+    }
+
+    .kpi-cards {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .kpi-value {
+        font-size: 1.8rem;
+    }
+}
